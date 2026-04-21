@@ -1,54 +1,29 @@
-# Latex Jekyll
-## Try it out
-[Try it here](https://unruffled-ardinghelli-55d901.netlify.app)
+# A Graph-Based Lagrangian Neural Network for Direct Current Optimal Power Flow
 
-## Getting started from scratch
-1. Clone  
-```git clone https://github.com/Hammie217/LatexJekyll.git```  
-2. Change directory  
-```cd LatexJekyll```  
-3. Updating bundle to resolve dependecy errors
-```bundle update```
-> Before running `bundle update` command make sure your system meets the [Jekyll Installation Requirements](https://jekyllrb.com/docs/installation/).
-4. Start Jekyll Server  
-```jekyll serve```  
-5. Connect to localhost  
+This repository provides an interactive web-based version of the paper:
 
-## What is there?
+**"A Graph-Based Lagrangian Neural Network for Direct Current Optimal Power Flow in Power Systems"**
 
-### Title settings
+## 🚀 Try it here
 
- - title - Set the main page title
- - author -  Set the authors name on the title page. Removed if none defined.
- - date - Set the front page date. Removed if none defined.
- - abstract - Set the text for the abstract. Removed if none defined.
+Access the live demo:
+👉 [Try it here](https://osqarrupc.github.io/GLONN/)
 
+## 📄 Paper
 
-### Sections
+Read the original article here:
+👉 https://tu-usuario.github.io/tu-repo/articulo
 
- - Section - Sets font styling of section. Requires manual numbering. `<p  class="Section">1 &ensp; Introduction</p>`
- - Sub Section - Sets font styling of subsection. Requires manual numbering. `<p  class="SubSection">1.2 &ensp; Text Styles</p>`
+## 💻 Source Code
 
-### Body settings
+Explore the implementation:
+👉 [https://github.com/osqarrupc/OPF_realtime](https://github.com/osqarrupc/OPF_realtime)
 
- - BodyText - Sets paragraph settings for single column. `<p  class="BodyText">`
- - BodyText2Col  - Sets paragraph settings for double colum. `<p  class="BodyText2Col">`
- - BodyText3Col  - Sets paragraph settings for triple column. `<p  class="BodyText3Col">`
- - Justified - Justifies text to take 100% of the width. `<p  class="Justified">`
+## 📌 Description
 
-### Font sizes
+This project presents a Jekyll-based academic-style article with LaTeX support, designed to make the paper more accessible, interactive, and easy to navigate.
 
- - tiny
- - scriptsize
- - footnotesize
- - small
- - normalsize
- - large
- - Large
- - LARGE
- - huge
- - HUGE
+## 🙏 Credits
 
- ### Maths
-
- Maths is delivered using mathJax. An inline latex equation can be done with "\\( ... \\)" or on a new line using "\\[ ... \\]".
+This project is based on the LatexJekyll template by Hammie217:
+👉 [https://github.com/Hammie217/LatexJekyll](https://github.com/Hammie217/LatexJekyll)
