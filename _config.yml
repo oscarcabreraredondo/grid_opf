@@ -1,0 +1,31 @@
+# =====================================================================
+# Configuración de Jekyll para grid_opf
+# =====================================================================
+
+# Metadatos del sitio (opcionales, informativos)
+title: "GLONN: A Graph-Based Lagrangian Neural Network for Optimal Power Flow"
+description: "Versión web interactiva del artículo GLONN para DC Optimal Power Flow."
+
+# ---------------------------------------------------------------------
+# RUTAS  ->  esto es lo importante para que los assets carguen bien
+# ---------------------------------------------------------------------
+# El sitio se sirve como "project page" en:
+#   https://oscarcabreraredondo.github.io/grid_opf/
+# Por eso baseurl es el nombre del repositorio (con la barra inicial):
+baseurl: "/grid_opf"
+url: "https://oscarcabreraredondo.github.io"
+#
+# Si en el futuro usas un dominio propio o una "user page"
+# (repositorio llamado oscarcabreraredondo.github.io), deja baseurl vacío:
+#   baseurl: ""
+#   url: "https://tu-dominio.com"
+
+# ---------------------------------------------------------------------
+# Qué NO publicar (no se copia a _site al construir)
+# ---------------------------------------------------------------------
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - index_old.html
+  - vendor

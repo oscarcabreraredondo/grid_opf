@@ -1,0 +1,13 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Documento académico">
+  <!-- Hoja con esquina superior derecha doblada -->
+  <path d="M18 8 H40 L50 18 V54 Q50 56 48 56 H18 Q16 56 16 54 V10 Q16 8 18 8 Z"
+        fill="#ffffff" stroke="#c4ccd9" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Pliegue de la esquina -->
+  <path d="M40 8 L50 18 H40 Z" fill="#dde3ee" stroke="#c4ccd9" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Título -->
+  <rect x="22" y="25" width="20" height="4.5" rx="2" fill="#335089"/>
+  <!-- Líneas de texto -->
+  <rect x="22" y="34" width="20" height="3" rx="1.5" fill="#aab2c0"/>
+  <rect x="22" y="40" width="20" height="3" rx="1.5" fill="#aab2c0"/>
+  <rect x="22" y="46" width="13" height="3" rx="1.5" fill="#aab2c0"/>
+</svg>

@@ -7,7 +7,7 @@ This repository provides an interactive web-based version of the paper:
 ## 🚀 Try it here
 
 Access the live demo:
-👉 [Try it here](https://osqarrupc.github.io/GLONN/)
+👉 [Try it here](https://oscarcabreraredondo.github.io/grid_opf/)
 
 ## 📄 Paper
 
@@ -17,7 +17,7 @@ Read the original article here:
 ## 💻 Source Code
 
 Explore the implementation:
-👉 [https://github.com/osqarrupc/OPF_realtime](https://github.com/osqarrupc/OPF_realtime)
+👉 [https://github.com/oscarcabreraredondo/glonn](https://github.com/oscarcabreraredondo/glonn)
 
 ## 📌 Description
 

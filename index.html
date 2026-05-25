@@ -1,56 +1,79 @@
 ---
 layout: default
-title: "GLONN: A Graph-Based Lagrangian Neural Network for Optimal Power Flow"
+title: "A Graph-Based Lagrangian Neural Network for Direct Current Optimal Power Flow in Power Systems"
 author: Óscar Cabrera Redondo & Sara Barja-Martinez & Mònica Aragüés-Peñalba & Samuel Galceran-Arellano
-date: July 2025
-abstract: The optimal power flow problem is fundamental in electrical networks for determining optimal power generation setpoints. However, near real-time solutions are required with the increasing penetration of renewable energy sources and power electronic devices. This paper introduces GLONN, a novel neural network architecture that integrates graph neural networks with Lagrangian principles to solve the DC optimal power flow problem. GLONN leverages the grid's structural information via graph convolutions and enforces physical feasibility through a Lagrangian-based loss formulation, enabling both fast inference and constraint satisfaction. We evaluate GLONN on benchmark electrical networks, comparing its performance against traditional solvers and baseline graph neural network models. Results show that GLONN achieves deviations of less than 10% from the global minimum of the objective function under normal conditions while reducing computation time by up to a factor of 40. These findings highlight the potential of hybrid physics-informed and topology-aware neural networks for real-time power system optimization.
+date: June 2026
+abstract: The optimal power flow problem is a fundamental task in power systems, yet the increasing penetration of renewable energy sources and power electronic devices is creating a growing need for fast decision-making tools. This paper proposes a graph-based Lagrangian neural architecture for direct current optimal power flow that combines topology-aware learning with explicit physical constraint handling. The proposed model uses a graph neural network to capture the structural dependencies of the electrical grid and an Augmented Lagrangian loss to promote physical consistency during training. The method is evaluated on benchmark networks under both normal and extreme operating conditions, and its performance is compared with the interior point optimizer and with a purely data-driven graph neural network baseline. Results show that, in the early training regime, the proposed model improves equality-constraint satisfaction relative to the purely data-driven graph neural network baseline by 37.44% under normal conditions and by 10.31% under extreme conditions. At the same time, the model retains millisecond-level inference and remains substantially faster than the interior point optimizer, with average speed-ups of 94 times under normal conditions and 15 times under extreme conditions. These results highlight the potential of feasibility-aware, topology-informed learning for fast approximate optimal power flow solutions.
 ---
-<p class="Section">1 &ensp; What are we proposing? GLONN</p>
-    <p class="BodyText Justified">In this paper, we propose a novel neural network architecture called <b>GLONN</b>, which combines a Graph Neural Network (GNN) with a Lagrangian Neural Network (LNN) to solve the DC Optimal Power Flow (DC-OPF) problem. GLONN leverages the structural information of the electrical grid and incorporates physical constraints directly into the learning process.
-    </p>
+
+<p class="Section">1 &ensp; What problem are we solving?</p>
+
+<p class="BodyText Justified">
+Electrical power systems must continuously decide how much power should be generated, where it should be injected, and whether the resulting operating point is feasible within the physical limits of the network. This decision-making task becomes more challenging as renewable generation, power electronic devices, distributed energy resources, and fast variations in demand increase the need for rapid and reliable operation.
+</p>
+
+<p class="BodyText Justified">
+A classical starting point is the economic dispatch problem, where the objective is to supply the total demand at minimum generation cost. However, economic dispatch does not explicitly represent the electrical network. It assumes that power can be transported from generators to loads without considering line limits, grid topology, or nodal constraints. In real networks, this assumption may be insufficient because a cheap generator cannot always be fully dispatched if the transmission lines around it are congested.
+</p>
+
+<p class="BodyText Justified">
+The <b>Optimal Power Flow (OPF)</b> problem extends economic dispatch by incorporating the physical constraints of the grid. Instead of balancing only total generation and total demand, OPF enforces power balance at each bus and checks whether the power flows, voltage-related variables, generator limits, and branch constraints are respected. In this sense, OPF is one of the central optimization problems in power system operation.
+</p>
+
+<p class="Section">2 &ensp; Why is fast OPF relevant?</p>
+
+<p class="BodyText Justified">
+Classical OPF solvers are reliable and accurate, but they may become computationally demanding when the system size increases, when operating conditions change frequently, or when OPF must be solved repeatedly. This is especially relevant in modern power systems, where operators may require fast corrective decisions, near real-time dispatch updates, or repeated evaluations under multiple scenarios.
+</p>
+
+<p class="BodyText Justified">
+Learning-based models can provide very fast inference once trained. However, a purely data-driven neural network does not inherently know the physics of the power system. It may predict generation setpoints that look close to the training data but violate nodal power balance, generator limits, branch flow constraints, or voltage angle limits. This motivates hybrid approaches that combine the speed of neural networks with explicit physical guidance.
+</p>
 
 
-<p class="Section">2 &ensp; Acknowledgment</p>
-    <p class="BodyText Justified normalsize">This web was created using Hamish Sams's Jekyll template, available at this <a href="https://github.com/Hammie217/LatexJekyll" target="_blank">link</a>.</br></p>
+<p class="Section">3 &ensp; What are we proposing? GLONN</p>
+
+<p class="BodyText Justified">
+In this paper, we propose <b>GLONN</b>, a Graph-Based Lagrangian Neural Network for DC Optimal Power Flow. GLONN combines two complementary ideas:
+</p>
+
+<p class="BodyText Justified">
+<b>1. A Graph Neural Network backbone.</b> The electrical grid is naturally represented as a graph. Buses are nodes, lines are edges, and the topology determines how power can flow through the network. The GNN uses this structure to learn topology-aware representations and predict active power generation setpoints.
+</p>
+
+<p class="BodyText Justified">
+<b>2. An Augmented Lagrangian loss.</b> Instead of training the model only to imitate OPF solutions, GLONN adds physical constraint information directly into the training objective. The loss includes the generation cost, equality-constraint residuals, inequality-constraint residuals, and Lagrange multiplier updates. This guides the model toward solutions that are not only accurate, but also more physically consistent.
+</p>
+
+<p class="BodyText Justified">
+The key idea is simple: the GNN provides fast topology-aware predictions, while the Lagrangian component penalizes violations of the DC-OPF constraints during training.
+</p>
 
 
+<p class="Section">4 &ensp; Main results</p>
 
-<script>
-function showSelectedNetwork() {
-  var select = document.getElementById("network-select");
-  var output = document.getElementById("network-info");
+<p class="BodyText Justified">
+The results show that GLONN improves equality-constraint satisfaction compared with the purely data-driven GNN baseline, especially in the limited-training regime considered in the paper. Under normal operating conditions, GLONN reduces the mean nodal power balance error from 0.0219 p.u. to 0.0137 p.u., corresponding to a 37.44% improvement.
+</p>
 
-  // Mapeo de opciones con sus rutas de archivo
-  var networkMap = {
-    "network1": "./assets/graphs/pglib_opf_case3_lmbd.html",
-    "network2": "./assets/graphs/pglib_opf_case3_lmbd__api.html",
-    "network3": "./assets/graphs/pglib_opf_case3_lmbd__sad.html",
-    "network4": "./assets/graphs/pglib_opf_case14_ieee.html",
-    "network5": "./assets/graphs/pglib_opf_case14_ieee__api.html",
-    "network6": "./assets/graphs/pglib_opf_case162_ieee_dtc.html",
-    "network7": "./assets/graphs/pglib_opf_case162_ieee_dtc__api.html",
-    "network8": "./assets/graphs/pglib_opf_case162_ieee_dtc__sad.html"
-  };
+<p class="BodyText Justified">
+At the same time, GLONN retains millisecond-level inference. Under normal operating conditions, GLONN is on average 94 times faster than IPOPT. Under extreme operating conditions, it remains approximately 15 times faster. These results suggest that the proposed architecture is not intended to replace classical solvers in all deterministic OPF settings, but rather to support fast approximate decision-making, feasibility-aware learning, or warm-starting strategies.
+</p>
 
-  var selectedValue = select.value;
+<p class="BodyText Justified">
+The main value of GLONN is therefore not only cost approximation, but the combination of <b>topology-aware learning</b>, <b>explicit physical feasibility guidance</b>, and <b>fast inference</b>.
+</p>
 
-  if (networkMap[selectedValue]) {
-    output.innerHTML = '<iframe src="' + networkMap[selectedValue] + '" width="100%" height="600" frameborder="0"></iframe>';
-  } else {
-    output.innerHTML = "";
-  }
-}
-function updateDisplay() {
-  const network = document.getElementById("network-select").value;
-  const method = document.getElementById("method-select").value;
-  const output = document.getElementById("graph-display");
 
-  if (network && method) {
-    const filename = `${network}_${method}.html`; // Ej: IEEE14_GLONN.html
-    const path = `./assets/graphs/${filename}`;
-    output.innerHTML = `<iframe src="${path}" width="100%" height="600" frameborder="0"></iframe>`;
-  } else {
-    output.innerHTML = ""; // Limpia si falta algo
-  }
-}
-</script>
+<p class="Section">5 &ensp; Why does this matter?</p>
+
+<p class="BodyText Justified">
+Modern power systems require tools that are not only accurate, but also fast, scalable, and physically meaningful. Purely optimization-based methods provide strong mathematical guarantees, but may become computationally demanding in repeated or near real-time settings. Purely data-driven models can be very fast, but may violate physical constraints. GLONN explores an intermediate direction which is a hybrid neural architecture that learns from OPF solutions while being explicitly guided by the physical structure of the problem.
+</p>
+
+
+<p class="Section">6 &ensp; Acknowledgment</p>
+
+<p class="BodyText Justified normalsize">
+This web was created using Hamish Sams's Jekyll template, available at this <a href="https://github.com/Hammie217/LatexJekyll" target="_blank">link</a>.
+</p>
